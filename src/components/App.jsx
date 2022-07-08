@@ -4,7 +4,7 @@ export const App = () => {
 
 	return (
 		<>
-			<h1>hola random cats</h1>	
+			<h1>Adopta un gato</h1>	
 			<hr/>
 			<CatList/>
 		</>
