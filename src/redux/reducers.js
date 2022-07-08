@@ -1,7 +1,12 @@
+export const ACTIONS = {
+	catsFetchedOk: '[CATS][ok] Search fetched',
+	catsFetchedFail: '[CATS][error] Search fetched',
+};
+
 export default (state = { cats: [], currentPage: {}}, action) => {
 
 	switch (action.type) {
-		case '[CATS][ok] Search fetched':
+		case ACTIONS.catsFetchedOk:
 			/** TODO: pagianción */
 			return action.data;
 	

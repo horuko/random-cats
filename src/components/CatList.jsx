@@ -1,14 +1,16 @@
 import { useEffect } from 'react';
 import { CatItem } from './CatItem';
 import { useSelector, useDispatch } from 'react-redux';
+import { ACTIONS } from '../redux/sagas';
 
 export const CatList = () => {
 	const dispatch = useDispatch();
 	const cats = useSelector((store) => store.cats) ;
 
 	useEffect(() => {
-		dispatch({type: '[CATS] Search', payload: { limit: 30, page: 1}});
+		dispatch({type: ACTIONS.catsSearch, payload: { limit: 30, page: 1}});
 	}, []);
+
 	return (
 		<div className="card_container">
 			{
