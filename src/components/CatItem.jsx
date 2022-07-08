@@ -1,7 +1,7 @@
 
 const calculateSize = ({ width, height }) => {
 	const aspectRatio = width / height;
-	console.log(width, height, aspectRatio)
+
 	if (aspectRatio < 0.5) {
 		return 'large';
 	} else if (aspectRatio < 0.8) {
