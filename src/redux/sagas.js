@@ -3,7 +3,7 @@ import Api from '../api';
 import { ACTIONS as reducersActions } from './reducers';
 
 export const ACTIONS = {
-	catsSearch: '[CATS] Search',
+	catsSearch: '[CATS] Search'
 };
 function *fetchCats({ payload }) {
 	const { limit, page } = payload;
@@ -18,7 +18,7 @@ function *fetchCats({ payload }) {
 }
 
 function *saga() {
-	yield takeLatest('[CATS] Search', fetchCats);
+	yield takeLatest(ACTIONS.catsSearch, fetchCats);
 }
 
 export default saga;
