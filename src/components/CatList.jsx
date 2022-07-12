@@ -3,13 +3,30 @@ import { CatItem } from './CatItem';
 import { useSelector, useDispatch } from 'react-redux';
 import { ACTIONS } from '../redux/sagas';
 import { InfiniteScroll } from "./InfiniteScroll";
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 export const CatList = () => {
 	const dispatch = useDispatch();
 	const cats = useSelector((store) => store.cats) ;
 	const currentPage = useSelector((store) => store.currentPage);
+	const selectedCat = useSelector((store) => store.selectedCat);
+	const navigate = useNavigate();
+	const [fromGoBack, setFromGoBack] = useState(true)
 
 	useEffect(() => {
+		// TODO: como quitar el fromGoBack. Al venir desde un back del navegador, se elimina el selectedCat en el componente CatDetail,
+		// pero debe haber una condición de carrera en la gestión de estados redux-react por la que al aterrizar aquí el selectedCat aun está.
+		if (selectedCat && !fromGoBack) { 
+			navigate('/cat');
+		}
+		setFromGoBack(false)
+	}, [selectedCat]);
+
+	useEffect(() => {
+		if (cats?.length) {
+			return;
+		}
 		dispatch({type: ACTIONS.catsSearch, payload: { limit: 30, page: 1}});
 	}, []);
 
@@ -26,7 +43,10 @@ export const CatList = () => {
 			<div className="card_container">
 				{
 					cats.map((cat) => 
-						<CatItem key={`${cat.id}_${new Date().getTime()}`} cat={cat}/>
+						<CatItem
+							key={`${cat.id}_${new Date().getTime()}`}
+							cat={cat}
+						/>
 					)
 				}
 			</div>

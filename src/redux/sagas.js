@@ -3,7 +3,8 @@ import Api from '../api';
 import { ACTIONS as reducersActions } from './reducers';
 
 export const ACTIONS = {
-	catsSearch: '[CATS] Search'
+	catsSearch: '[CATS] Search',
+	selectCat: '[CATS] Select',
 };
 function *fetchCats({ payload }) {
 	const { limit, page } = payload;
@@ -17,8 +18,13 @@ function *fetchCats({ payload }) {
 	}
 }
 
+function *selectCat({ payload }) {
+	yield put({type: reducersActions.selectCat, data: payload});
+}
+
 function *saga() {
 	yield takeLatest(ACTIONS.catsSearch, fetchCats);
+	yield takeLatest(ACTIONS.selectCat, selectCat);
 }
 
 export default saga;
