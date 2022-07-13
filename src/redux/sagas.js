@@ -6,23 +6,26 @@ export const ACTIONS = {
 	catsSearch: '[CATS] Search',
 	selectCat: '[CATS] Select',
 };
-function *fetchCats({ payload }) {
+function* fetchCats({ payload }) {
 	const { limit, page } = payload;
 
 	try {
 		const data = yield call(Api.fetchCats, { limit, page });
 
-		yield put({type: reducersActions.catsFetchedOk, data: { cats: data, currentPage: { limit, page }} });
+		yield put({
+			type: reducersActions.catsFetchedOk,
+			data: { cats: data, currentPage: { limit, page } },
+		});
 	} catch (error) {
-		yield put({type: reducersActions.catsFetchedFail, error })
+		yield put({ type: reducersActions.catsFetchedFail, error });
 	}
 }
 
-function *selectCat({ payload }) {
-	yield put({type: reducersActions.selectCat, data: payload});
+function* selectCat({ payload }) {
+	yield put({ type: reducersActions.selectCat, data: payload });
 }
 
-function *saga() {
+function* saga() {
 	yield takeLatest(ACTIONS.catsSearch, fetchCats);
 	yield takeLatest(ACTIONS.selectCat, selectCat);
 }
